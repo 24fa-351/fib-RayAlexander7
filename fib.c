@@ -1,9 +1,10 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <time.h>
 
 // Function to calculate Fibonacci number using iterative method
-int fib_iterative(int n) {
-    int a = 0, b = 1, next;
+unsigned long long fib_iterative(int n) {
+    unsigned long long a = 0, b = 1, next;
 
     if (n == 0)
         return a;
@@ -16,7 +17,7 @@ int fib_iterative(int n) {
 }
 
 // Function to calculate Fibonacci number using recursive method
-int fib_recursive(int n) {
+unsigned long long fib_recursive(int n) {
     if (n <= 1)
         return n;
     return fib_recursive(n - 1) + fib_recursive(n - 2);
@@ -47,8 +48,11 @@ int main(int argc, char *argv[]) {
     // Calculate the sum of the two numbers
     int N = first_number + second_number;
 
+    // Record the start time
+    clock_t start_time = clock();
+
     // Determine the method: recursive or iterative
-    int fibonacci_number;
+    unsigned long long fibonacci_number;
     if (argv[2][0] == 'r') {
         fibonacci_number = fib_recursive(N);
     } else if (argv[2][0] == 'i') {
@@ -58,8 +62,14 @@ int main(int argc, char *argv[]) {
         return 1;
     }
 
+    // Record the end time
+    clock_t end_time = clock();
+    double time_taken = (double)(end_time - start_time) / CLOCKS_PER_SEC;
+
     // Output the result
-    printf("The %dth Fibonacci number is: %d\n", N, fibonacci_number);
+    printf("The %dth Fibonacci number is: %llu\n", N, fibonacci_number);
+    printf("Time taken: %f seconds\n", time_taken);
 
     return 0;
 }
+
